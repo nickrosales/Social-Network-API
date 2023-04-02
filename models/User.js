@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
-import { isEmail } from 'validator';
+const validator = require('validator')
 
 
-// Schema to create a course model
+// Schema to create a user model
 const userSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       unique: true,
       required: true,
@@ -15,19 +15,19 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: [isEmail, 'invalid email']
+      validate: [validator.isEmail, 'invalid email']
 
     },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thoughts',
+        ref: 'thoughts',
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
       },
     ],
   },
@@ -46,4 +46,4 @@ userSchema
   })
 const User = model('user', userSchema);
 
-module.exports = User
+module.exports = User;
